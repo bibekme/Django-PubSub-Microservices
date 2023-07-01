@@ -15,6 +15,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=producer_app
     ports:
       - "5432:5432"
     volumes:
@@ -26,6 +27,8 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=consumer_app
+
     ports:
       - "5433:5432"
     volumes:
