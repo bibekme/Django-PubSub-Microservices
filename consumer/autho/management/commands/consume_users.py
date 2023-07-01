@@ -30,9 +30,9 @@ def consume_user_events():
                     idx=payload.get("idx"), defaults={**u}
                 )
                 if created:
-                    print(f"User {user} with {user.idx} created successfully")
+                    print(f"User {user} with idx {user.idx} created successfully")
                 else:
-                    print(f"User {user} with {user.idx} updated successfully")
+                    print(f"User {user} with idx {user.idx} updated successfully")
             elif data.get("event_type") == "account-deletion":
                 user = User.objects.delete(idx=data.get("payload"))
                 print(f"User with idx {user.idx} was deleted successfully")
