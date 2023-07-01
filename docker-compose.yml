@@ -55,6 +55,19 @@ services:
       - redis
       - producer
       - db-2
+
+  pubsub_consumer:
+    build: ./consumer
+    restart: always
+    command: python manage.py consume_users
+    volumes:
+      - ./consumer:/usr/src/app/
+    depends_on:
+      - redis
+      - producer
+      - consumer
+      - db-2
+
 volumes:
   redis:
     driver: local
