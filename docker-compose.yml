@@ -9,6 +9,7 @@ services:
     command: redis-server --save 20 1 --loglevel warning
     volumes:
       - redis:/data
+
   db-1:
     image: postgres:14.1-alpine
     restart: always
