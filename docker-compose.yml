@@ -9,6 +9,27 @@ services:
     command: redis-server --save 20 1 --loglevel warning
     volumes:
       - redis:/data
+  db-1:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-1:/var/lib/postgresql/data
+
+  db-2:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5433:5432"
+    volumes:
+      - db-2:/var/lib/postgresql/data
 
   producer:
     build: ./producer
@@ -19,6 +40,7 @@ services:
       - 8000:8000
     depends_on:
       - redis
+      - db-1
 
   consumer:
     build: ./consumer
@@ -30,6 +52,11 @@ services:
     depends_on:
       - redis
       - producer
+      - db-2
 volumes:
   redis:
+    driver: local
+  db-1:
+    driver: local
+  db-2:
     driver: local
