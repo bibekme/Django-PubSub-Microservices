@@ -34,9 +34,9 @@ def consume_user_events():
                 else:
                     print(f"User {user} with idx {user.idx} updated successfully")
             elif data.get("event_type") == "account-deletion":
-                user = User.objects.delete(idx=data.get("payload"))
-                print(f"User with idx {user.idx} was deleted successfully")
-
+                idx = data.get("payload")
+                user = User.objects.get(idx=idx).delete(force_delete=True)
+                print(f"User with idx {idx} was deleted successfully")
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
